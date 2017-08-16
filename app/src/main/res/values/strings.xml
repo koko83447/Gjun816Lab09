@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Lab09_include_merge</string>
+
+
+    <string name="question_1">請問\"1\"+1的結果是？</string>
+    <string name="question_1_radio_a">編譯失敗</string>
+    <string name="question_1_radio_b">2</string>
+    <string name="question_1_radio_c">11</string>
+
+    <string name="question_2">請問merge在android layout的用途？</string>
+    <string name="question_2_radio_a">根本就沒有這個功能</string>
+    <string name="question_2_radio_b">將一個layout併入另一個layout,可節省一層ViewGroup</string>
+    <string name="question_2_radio_c">版本控制系統嗽來合併不同的分支</string>
+
+    <string name="question_3">請問切換Activity要呼叫哪個方法？</string>
+    <string name="question_3_radio_a">startActivity()</string>
+    <string name="question_3_radio_b">startActivityForResult</string>
+    <string name="question_3_radio_c">以上皆是</string>
+</resources>
