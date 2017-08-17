@@ -35,8 +35,6 @@ public class Activity3 extends AppCompatActivity {
         setContentView(R.layout.activity_3);
         init();
 
-        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
-        m_q2_answer = getIntent().getExtras().getString(Q2_ANSWER_KEY);
     }
 
     private void init() {
@@ -46,6 +44,8 @@ public class Activity3 extends AppCompatActivity {
         m_radio_b = (RadioButton)findViewById(R.id.radio_b);
         m_radio_c = (RadioButton)findViewById(R.id.radio_c);
 
+        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
+        m_q2_answer = getIntent().getExtras().getString(Q2_ANSWER_KEY);
         m_tv_no.setText("3");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
@@ -68,9 +68,12 @@ public class Activity3 extends AppCompatActivity {
 
     public void back(View view) {
         Intent intent = new Intent(this,Activity2.class);
+
         intent.putExtra(Q1_ANSWER_KEY,m_q1_answer);
         intent.putExtra(Q2_ANSWER_KEY,m_q2_answer);
         intent.putExtra(Q3_ANSWER_KEY,m_q3_answer);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
     public void click(View view){
@@ -96,6 +99,7 @@ public class Activity3 extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialog, int which){
             Intent intent = new Intent(Activity3.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }
@@ -105,5 +109,26 @@ public class Activity3 extends AppCompatActivity {
         public void onClick(DialogInterface dialog, int which){
 
         }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        overridePendingTransition(R.anim.push_right_in,R.anim.push_left_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
+        m_q2_answer = getIntent().getExtras().getString(Q2_ANSWER_KEY);
+
     }
 }

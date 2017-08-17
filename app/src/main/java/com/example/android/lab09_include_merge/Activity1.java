@@ -61,12 +61,35 @@ public class Activity1 extends AppCompatActivity {
     }
 
     public void next(View view) {
+
         Intent intent = new Intent(this,Activity2.class);
         intent.putExtra(Q1_ANSWER_KEY,m_q1_answer);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     public void click(View view) {
         m_q1_answer = view.getTag().toString();
     }
+
+    @Override
+    protected void onResume(){
+    super.onResume();
+    overridePendingTransition(R.anim.push_right_in,R.anim.push_left_out);
+
 }
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+}
+

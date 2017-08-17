@@ -32,7 +32,7 @@ public class Activity2 extends AppCompatActivity {
         setContentView(R.layout.activity_2);
         init();
 
-        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
+
     }
 
     private void init() {
@@ -42,7 +42,9 @@ public class Activity2 extends AppCompatActivity {
         m_radio_b = (RadioButton)findViewById(R.id.radio_b);
         m_radio_c = (RadioButton)findViewById(R.id.radio_c);
 
+        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
         m_tv_no.setText("2");
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             Spanned result;
@@ -64,21 +66,45 @@ public class Activity2 extends AppCompatActivity {
 
     public void next(View view) {
         Intent intent = new Intent(this,Activity3.class);
-
-        Intent q1Intent = getIntent();
         intent.putExtra(Q1_ANSWER_KEY,m_q1_answer);
         intent.putExtra(Q2_ANSWER_KEY,m_q2_answer);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
         startActivity(intent);
+
     }
 
     public void back(View view) {
         Intent intent = new Intent(this,Activity1.class);
+
         intent.putExtra(Q1_ANSWER_KEY,m_q1_answer);
         intent.putExtra(Q2_ANSWER_KEY,m_q2_answer);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
         startActivity(intent);
     }
 
     public void click(View view) {
         m_q2_answer = view.getTag().toString();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        overridePendingTransition(R.anim.push_right_in,R.anim.push_left_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        m_q1_answer = getIntent().getExtras().getString(Q1_ANSWER_KEY);
     }
 }
